@@ -22,11 +22,6 @@ app.get('/', (req, res) => { //This is setting up which end point to hit. / Is g
     res.sendFile(path.join(__dirname, '../index.html')) //This is setting up the file path to get to the index.html.  Current directory finding the next file path needed.
 })
 
-app.get('/', (req, res) => {
-    rollbar.info("Someone got the list of students to load.")
-    res.status(200).send(students)
-})
-
 app.get('/css', (req, res) => {
     res.sendFile(path.join(__dirname, '../styles.css'))
 })
@@ -38,4 +33,15 @@ app.get('/js', (req, res) => {
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
+})
+
+app.get ('/', (req, res) => {
+    rollbar.info("Someone got the list of students to load.")
+    try {
+    nonExistentFunction();
+  } catch (error) {
+    console.error(error);
+    // expected output: ReferenceError: nonExistentFunction is not defined
+    // Note - error messages will vary depending on browser
+  }
 })
