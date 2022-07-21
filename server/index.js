@@ -30,13 +30,10 @@ app.get('/js', (req, res) => {
     res.sendFile(path.join(__dirname, '../main.js'))
 })
 
-
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`)
-})
-
 app.get ('/', (req, res) => {
     rollbar.info("Someone got the list of students to load.")
+    rollbar.critical("DANGER DANGER")
+    rollbar.warning("FINAL WARNING")
     try {
     nonExistentFunction();
   } catch (error) {
@@ -44,4 +41,8 @@ app.get ('/', (req, res) => {
     // expected output: ReferenceError: nonExistentFunction is not defined
     // Note - error messages will vary depending on browser
   }
+})
+
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`)
 })
