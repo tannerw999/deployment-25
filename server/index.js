@@ -17,17 +17,17 @@ var rollbar = new Rollbar({
 
 // record a generic message and send it to Rollbar
 rollbar.log('Hello world!')
-
-app.get('/', (req, res) => { //This is setting up which end point to hit. / Is goign to be for all homepage endpoints.
+// /This is setting up which end point to hit. / Is goign to be for all homepage endpoints.
+app.get('/', (req, res) => {
     rollbar.info("Someone got the list of students to load.")
     rollbar.critical("DANGER DANGER")
     rollbar.warning("FINAL WARNING")
+    res.sendFile(path.join(__dirname, '../index.html')) //This is setting up the file path to get to the index.html.  Current directory finding the next file path needed.
+})
     try {
     nonExistentFunction();
   } catch (error) {
     console.error(error);
-    res.sendFile(path.join(__dirname, '../index.html')) //This is setting up the file path to get to the index.html.  Current directory finding the next file path needed.
-})
 
 app.get('/css', (req, res) => {
     res.sendFile(path.join(__dirname, '../styles.css'))
