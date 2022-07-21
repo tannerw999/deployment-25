@@ -22,6 +22,11 @@ app.get('/', (req, res) => { //This is setting up which end point to hit. / Is g
     res.sendFile(path.join(__dirname, '../index.html')) //This is setting up the file path to get to the index.html.  Current directory finding the next file path needed.
 })
 
+app.get('/', (req, res) => {
+    rollbar.info("Someone got the list of students to load.")
+    res.status(200).send(students)
+})
+
 app.get('/css', (req, res) => {
     res.sendFile(path.join(__dirname, '../styles.css'))
 })
