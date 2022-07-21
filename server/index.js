@@ -19,6 +19,13 @@ var rollbar = new Rollbar({
 rollbar.log('Hello world!')
 
 app.get('/', (req, res) => { //This is setting up which end point to hit. / Is goign to be for all homepage endpoints.
+    rollbar.info("Someone got the list of students to load.")
+    rollbar.critical("DANGER DANGER")
+    rollbar.warning("FINAL WARNING")
+    try {
+    nonExistentFunction();
+  } catch (error) {
+    console.error(error);
     res.sendFile(path.join(__dirname, '../index.html')) //This is setting up the file path to get to the index.html.  Current directory finding the next file path needed.
 })
 
@@ -28,19 +35,6 @@ app.get('/css', (req, res) => {
 
 app.get('/js', (req, res) => {
     res.sendFile(path.join(__dirname, '../main.js'))
-})
-
-app.get ('/', (req, res) => {
-    rollbar.info("Someone got the list of students to load.")
-    rollbar.critical("DANGER DANGER")
-    rollbar.warning("FINAL WARNING")
-    try {
-    nonExistentFunction();
-  } catch (error) {
-    console.error(error);
-    // expected output: ReferenceError: nonExistentFunction is not defined
-    // Note - error messages will vary depending on browser
-  }
 })
 
 app.listen(port, () => {
