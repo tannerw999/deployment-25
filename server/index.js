@@ -1,9 +1,21 @@
 const express = require('express')
 const path = require('path')
-
 const app = express()
-
 const port = process.env.PORT || 4005
+
+app.use(express.json())
+app.use(cors())
+
+// include and initialize the rollbar library with your access token
+var Rollbar = require('rollbar')
+var rollbar = new Rollbar({
+  accessToken: 'fbbe4bedaf924dfe99c8a95c8777ddda',
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+})
+
+// record a generic message and send it to Rollbar
+rollbar.log('Hello world!')
 
 app.get('/', (req, res) => { //This is setting up which end point to hit. / Is goign to be for all homepage endpoints.
     res.sendFile(path.join(__dirname, '../index.html')) //This is setting up the file path to get to the index.html.  Current directory finding the next file path needed.
